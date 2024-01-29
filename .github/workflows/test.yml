@@ -3,7 +3,7 @@ on: [push, pull_request]
 name: test
 
 concurrency:
-  group: ${{ github.workflow }}-${{ (github.event_name == 'pull_request' && 'pr-' + github.event.pull_request.number) || github.ref }}
+  group: ${{ github.workflow }}-${{ (github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number)) || github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
