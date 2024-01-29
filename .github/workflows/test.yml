@@ -11,5 +11,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "${{ github.ref }}-${{ github.workflow }}"
+          echo "${{ github.workflow }}-${{ (github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number)) || github.ref }}"
           sleep 12
