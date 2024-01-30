@@ -27,10 +27,10 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Find Comment
         uses: peter-evans/find-comment@v3
+        continue-on-error: true
         id: fc
         with:
           issue-number: ${{ github.event.pull_request.number }}
-          comment-author: 'github-actions[bot]'
           body-includes: testy1
           
       - name: Create or update comment
