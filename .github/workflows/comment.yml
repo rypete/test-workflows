@@ -37,6 +37,6 @@ jobs:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            ${{ steps.fc.outputs.comment-id == '' && 'Playwright snapshots' || ''}}
+            ${{ steps.fc.outputs.comment-id == '' && 'testy1' || ''}}
             ${{ github.sha }}: ${{ github.run_id }}
           edit-mode: replace
