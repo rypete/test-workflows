@@ -32,6 +32,7 @@ jobs:
           body-includes: testy1
           
       - name: Create or update comment
+        continue-on-error: true
         uses: peter-evans/create-or-update-comment@v4
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
@@ -39,3 +40,6 @@ jobs:
           body: |
             ${{ steps.fc.outputs.comment-id == '' && 'testy1' || ''}}
             ${{ github.sha }}: ${{ github.run_id }}
+
+      - if: ${{ success() }}
+        run: echo "done"
