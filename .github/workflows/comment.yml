@@ -39,4 +39,3 @@ jobs:
           body: |
             ${{ steps.fc.outputs.comment-id == '' && 'testy1' || ''}}
             ${{ github.sha }}: ${{ github.run_id }}
-          edit-mode: replace
