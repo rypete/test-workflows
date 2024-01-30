@@ -5,6 +5,7 @@ name: commentor
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
   pull_request:
     branches: [ "main" ]
 
@@ -38,6 +39,6 @@ jobs:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            ${{ steps.fc.outputs.comment-id == '' && "Playwright snapshots" || ''}}
+            ${{ steps.fc.outputs.comment-id == '' && 'Playwright snapshots' || ''}}
             ${{ github.sha }}: ${{ github.run_id }}
           edit-mode: replace
