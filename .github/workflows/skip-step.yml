@@ -12,9 +12,10 @@ jobs:
     steps:
       - run: |
           echo "hello world"
-      - if: ${{ github.event.inputs.skip == 'true' }}
+      - if: ${{ github.event.inputs.skip != 'true' }}
         run: |
           echo "Im not skipped"
-      - run: |
+      - if: ${{ success() }}
+        run: |
           echo "finish"
         
