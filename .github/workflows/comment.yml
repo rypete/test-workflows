@@ -24,7 +24,7 @@ jobs:
       
       # Runs a set of commands using the runners shell
       - name: Find Comment
-        if: ${{ github.event.pull_request.number != '' }}
+        if: ${{ github.event_name == "pull_request" }}
         uses: peter-evans/find-comment@v3
         continue-on-error: true
         id: fc
@@ -33,7 +33,7 @@ jobs:
           body-includes: testy1
           
       - name: Create or update comment
-        if: ${{ github.event.pull_request.number != '' }}
+        if: ${{ github.event_name == "pull_request" }}
         continue-on-error: true
         uses: peter-evans/create-or-update-comment@v4
         with:
