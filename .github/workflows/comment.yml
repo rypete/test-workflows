@@ -45,7 +45,7 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
             ${{ steps.fc.outputs.comment-id == '' && 'testy1' || ''}}
-            ${{ github.sha }}: ${{ github.run_id }}
+            ${{ github.sha }}: [results](https://google.com)
 
       - if: ${{ success() }}
         run: echo "done"
