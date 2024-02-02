@@ -4,7 +4,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    working-directory: web-app
+    defaults:
+      runs:
+        working-directory: web-app
     steps:
       - run: yarn build
       - uses: actions/artifact-upload@v4
