@@ -3,6 +3,7 @@ on:
 
 jobs:
   build:
+    runs-on: ubuntu-latest
     working-directory: web-app
     steps:
       - run: yarn build
@@ -13,6 +14,7 @@ jobs:
 
   custom:
     needs: build
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/test-artifact
