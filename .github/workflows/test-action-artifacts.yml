@@ -1,0 +1,18 @@
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    working-directory: web-app
+    steps:
+      - run: yarn build
+      - uses: actions/artifact-upload@v4
+        with:
+          name: build
+          path: .next/
+
+  custom:
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/test-artifact

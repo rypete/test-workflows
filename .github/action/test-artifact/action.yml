@@ -1,0 +1,8 @@
+name: test-artifact
+description: abc
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/download-artifact@v4
+    - name: Display structure of downloaded files
+      run: ls -R
