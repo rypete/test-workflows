@@ -13,11 +13,11 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: build
-          path: .next/
+          path: web-app/.next/
 
   custom:
     needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/actions/test-artifact
+      - uses: ./.github/action/test-artifact
