@@ -1,0 +1,57 @@
+name: Dependency updater
+on:
+  schedule:
+    - cron: "* * * * *"
+    - cron: "0 0 1 * *"
+    - cron: "0 0 1 */3 *"
+  workflow_dispatch:
+    inputs:
+      version_bump:
+        type: choice
+        required: true
+        default: patch
+        description: Bump major, minor, or patch versions?
+        options:
+          - major
+          - minor
+          - patch
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    name: Update project dependencies
+    continue-on-error: true
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: "Set dynamic ENV variables"
+        env:
+          SCHEDULE: ${{ github.event.schedule }}
+        run: |
+          echo "DATE_STRING=$(date +'%d-%m-%Y')" >> $GITHUB_ENV
+          echo "BRANCH_NAME=$(echo ${{ matrix.name }} | tr '[:upper:]' '[:lower:]' | sed 's/ /-/g')" >> $GITHUB_ENV
+
+          VERSION_BUMP=${{ inputs.version_bump || 'patch' }}
+
+          echo "@@@"
+          echo "$SCHEDULE"
+          echo "${{ github.event.schedule }}"
+          echo "@@@"
+
+          if [ "$SCHEDULE" == "0 0 1 */3 *" ]; then
+            VERSION_BUMP = "major"
+          fi
+
+          echo "$VERSION_BUMP"
+
+          echo "VERSION_BUMP=$VERSION_BUMP" >> $GITHUB_ENV
+
+          if [[ -f .ncurc.json ]]; then
+            REJECTS=$(jq -r '.reject[] | "- \(.)"' .ncurc.json | paste -sd $'\n' -)
+            echo "REJECTS<<EOF" >> $GITHUB_ENV
+            echo "$REJECTS" >> $GITHUB_ENV
+            echo "EOF" >> $GITHUB_ENV
+          fi
