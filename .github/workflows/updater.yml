@@ -42,8 +42,8 @@ jobs:
           echo "@@@"
 
           if [ "$SCHEDULE" == "*/5 * * * *" ]; then
-            VERSION_BUMP = "major"
             echo "####"
+            VERSION_BUMP="major"
             echo "$VERSION_BUMP"
           fi
 
