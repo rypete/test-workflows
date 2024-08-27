@@ -42,8 +42,10 @@ jobs:
           echo "${{ github.event.schedule }}"
           echo "@@@"
 
-          if [ "$SCHEDULE" == "0 0 1 */3 *" ]; then
+          if [ "$SCHEDULE" == "*/5 * * * *" ]; then
             VERSION_BUMP = "major"
+            echo "####"
+            echo "$VERSION_BUMP"
           fi
 
           echo "$VERSION_BUMP"
